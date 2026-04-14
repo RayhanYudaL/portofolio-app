@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Rayhan Yuda Lesmana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8fafc;
+    --bg2: #f1f5f9;
+    --surface: #ffffff;
+    --text: #0f172a;
+    --text2: #475569;
+    --text3: #94a3b8;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --border: #e2e8f0;
+    --tag-bg: #eff6ff;
+    --tag-text: #1d4ed8;
+    --radius: 16px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    --shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+    --tr: 0.3s cubic-bezier(0.4,0,0.2,1);
+    --nav-bg: rgba(248, 250, 252, 0.85);
+  }
+  [data-theme="dark"] {
+    --bg: #0f172a;
+    --bg2: #020617;
+    --surface: #1e293b;
+    --text: #f8fafc;
+    --text2: #cbd5e1;
+    --text3: #64748b;
+    --accent: #3b82f6;
+    --accent-hover: #60a5fa;
+    --border: #334155;
+    --tag-bg: #1e3a8a;
+    --tag-text: #bfdbfe;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2);
+    --shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+    --nav-bg: rgba(15, 23, 42, 0.85);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  
+  html { scroll-behavior:smooth; scroll-padding-top: 100px; }
+  
+  body {
+    font-family:'Inter', sans-serif;
+    background:var(--bg); color:var(--text);
+    font-size:16px; line-height:1.7;
+    transition:background var(--tr),color var(--tr);
+    overflow-x:hidden;
+  }
+  
+  *:focus-visible {
+    outline: 2px dashed var(--accent);
+    outline-offset: 4px;
+  }
+
+  ::-webkit-scrollbar{width:6px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
+  /* NAV */
+  nav {
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 60px;
+    background:transparent;
+    border-bottom:1px solid transparent;
+    transition:all var(--tr);
+  }
+  nav.scrolled{
+    background:var(--nav-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-color:var(--border); 
+    padding-top: 14px; padding-bottom: 14px;
+  }
+  .nav-logo{font-family:'Outfit', sans-serif; font-weight:700; font-size:1.4rem; color:var(--text); text-decoration:none; letter-spacing:-0.02em;}
+  .nav-center { display: flex; align-items: center; gap: 32px;}
+  .nav-links{display:flex;gap:32px;align-items:center;list-style:none}
+  .nav-links a{
+    color:var(--text2);text-decoration:none;font-size:0.9rem; font-weight:500;
+    position:relative;transition:color var(--tr);
+  }
+  .nav-links a:hover{color:var(--text)}
+  
+  .theme-btn{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:40px;padding:8px 18px;
+    cursor:pointer;color:var(--text2);font-size:0.85rem; font-weight:500;
+    font-family:'Inter',sans-serif;
+    transition:all var(--tr);display:flex;align-items:center;gap:8px;
+    box-shadow: var(--shadow);
+  }
+  .theme-btn:hover{border-color:var(--text3);color:var(--text); transform:translateY(-1px);}
+
+  .menu-toggle {
+    display: none; background: none; border: none;
+    color: var(--text); font-size: 1.5rem;
+    cursor: pointer; padding: 5px;
+  }
+
+  /* WRAPPER */
+  .wrap{max-width:1100px;margin:0 auto;padding:0 60px}
+
+  /* HERO */
+  #hero{
+    min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    padding-top:130px;padding-bottom:80px;
+  }
+  .hero-eyebrow{
+    font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase; font-weight:600;
+    color:var(--accent);margin-bottom:24px;
+    display:flex;align-items:center;gap:14px;
+    opacity:0;transform:translateY(14px);
+    animation:fadeUp 0.7s forwards 0.2s;
+  }
+  .hero-eyebrow::before{content:'';width:32px;height:2px;background:var(--accent); border-radius:2px;}
+  .hero-h1{
+    font-family:'Outfit', sans-serif; font-weight:700;
+    font-size:clamp(2.8rem, 5.5vw, 4.5rem);
+    line-height:1.1;letter-spacing:-0.03em;
+    margin-bottom:24px;
+    opacity:0;transform:translateY(20px);
+    animation:fadeUp 0.8s forwards 0.4s;
+  }
+  .hero-h1 em{font-style:normal;color:var(--accent)}
+  .hero-sub{
+    font-size:1.1rem;color:var(--text2);max-width:540px;
+    font-weight:400;line-height:1.8;
+    opacity:0;transform:translateY(14px);
+    animation:fadeUp 0.7s forwards 0.6s;
+  }
+  .hero-cta{
+    display:flex;gap:16px;margin-top:44px;flex-wrap:wrap;
+    opacity:0;transform:translateY(14px);
+    animation:fadeUp 0.7s forwards 0.8s;
+  }
+  .btn-fill{
+    background:var(--accent);color:#ffffff;
+    padding:14px 32px;border-radius:var(--radius-sm);
+    text-decoration:none;font-size:0.9rem;font-weight:600;
+    transition:all var(--tr); border:1px solid transparent;
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.3);
+  }
+  .btn-fill:hover{background:var(--accent-hover); transform:translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);}
+  .btn-ghost{
+    background:var(--surface); color:var(--text); padding:14px 32px;border-radius:var(--radius-sm);
+    text-decoration:none;font-size:0.9rem; font-weight:500;
+    border:1px solid var(--border);transition:all var(--tr);
+    box-shadow: var(--shadow);
+  }
+  .btn-ghost:hover{border-color:var(--text3); transform:translateY(-2px); box-shadow: var(--shadow-hover);}
+  .hero-scroll{
+    margin-top:auto;padding-top:72px;
+    display:flex;align-items:center;gap:12px;
+    font-size:0.75rem;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase; font-weight:600;
+    opacity:0;animation:fadeUp 0.7s forwards 1.2s;
+  }
+  .sline{width:40px;height:2px;background:var(--border);position:relative;overflow:hidden; border-radius:2px;}
+  .sline::after{
+    content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+    background:var(--accent);animation:scan 2s ease-in-out infinite 1.6s;
+  }
+
+  /* SECTION SHARED */
+  section{padding:120px 0}
+  .sec-label{
+    display:inline-block; font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase; font-weight:600;
+    color:var(--accent); background:var(--tag-bg); padding:6px 16px; border-radius:40px; margin-bottom:24px;
+  }
+  .sec-title{
+    font-family:'Outfit', sans-serif; font-weight:700;
+    font-size:clamp(2.2rem, 4vw, 3.2rem);
+    letter-spacing:-0.03em;line-height:1.15;
+  }
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .about-title{font-family:'Outfit', sans-serif; font-weight:600; font-size:clamp(1.8rem,2.5vw,2.4rem); line-height:1.2; letter-spacing:-0.02em; margin-bottom:24px; color:var(--text);}
+  .about-title em{font-style:normal;color:var(--accent)}
+  .about-p{color:var(--text2);font-weight:400;line-height:1.8;margin-bottom:16px;font-size:1rem}
+  .stats{display:flex;gap:40px;margin-top:40px;padding-top:32px;border-top:1px solid var(--border)}
+  .snum{font-family:'Outfit', sans-serif; font-weight:700; font-size:2.8rem; color:var(--text); line-height:1; margin-bottom:8px;}
+  .slbl{font-size:0.8rem;color:var(--text2); font-weight:500;}
+
+  /* SKILLS */
+  .skill-row{
+    display:flex;align-items:center;gap:16px;
+    padding:18px 24px;background:var(--surface);
+    border:1px solid var(--border);border-radius:var(--radius-sm);
+    margin-bottom:12px;transition:all var(--tr);
+    box-shadow: var(--shadow);
+  }
+  .skill-row:hover{border-color:var(--text3);transform:translateX(6px); box-shadow: var(--shadow-hover);}
+  .sdot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0; box-shadow: 0 0 8px var(--accent);}
+  .sname{font-size:0.9rem;font-weight:600;flex:1; color:var(--text);}
+  .slevel{font-size:0.75rem;color:var(--text3); font-weight:500; text-transform:uppercase; letter-spacing:0.05em;}
+  .sbar{width:80px;height:4px;background:var(--bg2);border-radius:2px;position:relative;overflow:hidden}
+  .sfill{position:absolute;top:0;left:0;height:100%;background:var(--accent);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform 1s cubic-bezier(0.4,0,0.2,1)}
+
+  /* PROJECTS */
+  .proj-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:20px}
+  .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .pcard{
+    background:var(--surface);border:1px solid var(--border); border-radius:var(--radius);
+    padding:36px;transition:all var(--tr); box-shadow: var(--shadow);
+    text-decoration:none;color:inherit;display:block;position:relative;overflow:hidden;
+  }
+  .pcard:hover{transform:translateY(-4px); box-shadow: var(--shadow-hover); border-color:var(--text3);}
+  .pnum{font-family:'Outfit', sans-serif; font-size:0.8rem; font-weight:700; color:var(--text3); letter-spacing:0.05em; margin-bottom:20px; display:block}
+  .ptitle{font-family:'Outfit', sans-serif; font-weight:700; font-size:1.6rem; line-height:1.2; margin-bottom:14px; letter-spacing:-0.02em; color:var(--text);}
+  .pdesc{font-size:0.95rem;color:var(--text2);line-height:1.7;margin-bottom:24px;font-weight:400;}
+  .ptags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;}
+  .tag{background:var(--tag-bg);color:var(--tag-text);padding:6px 14px;border-radius:6px;font-size:0.75rem; font-weight:600;}
+  .plinks{display:flex;gap:20px;}
+  .plink{font-size:0.85rem; font-weight:600; color:var(--accent); text-decoration:none; transition:color var(--tr);display:flex;align-items:center;gap:6px}
+  .plink:hover{color:var(--accent-hover);}
+  
+  .pcard.feat{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .pcard.feat .ptitle{font-size:2.2rem}
+  .mockup{background:var(--bg2);border-radius:var(--radius-sm);height:240px;display:flex;align-items:center;justify-content:center; border:1px solid var(--border);}
+  .mline{height:8px;background:var(--text3);border-radius:4px;margin-bottom:12px;opacity:0.3; animation:pulse 2s ease-in-out infinite}
+  .mline:nth-child(2){width:68%;animation-delay:.2s}
+  .mline:nth-child(3){width:82%;animation-delay:.4s}
+  .mline:nth-child(4){width:48%;animation-delay:.6s}
+
+  /* EXPERIENCE */
+  .exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+  .tline{position:relative;padding-left:32px}
+  .tline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:var(--border); border-radius:2px;}
+  .titem{position:relative;padding-bottom:40px}
+  .titem:last-child{padding-bottom:0}
+  .tdot{position:absolute;left:-37px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--border);transition:all var(--tr)}
+  .titem:hover .tdot{border-color:var(--accent); background:var(--accent); box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);}
+  .tdate{font-size:0.8rem;color:var(--text3); font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px}
+  .trole{font-family:'Outfit', sans-serif; font-weight:600; font-size:1.2rem; letter-spacing:-0.01em; margin-bottom:4px; color:var(--text);}
+  .tco{font-size:0.9rem;color:var(--accent); font-weight:600; margin-bottom:12px}
+  .tdesc{font-size:0.95rem;color:var(--text2);line-height:1.7;font-weight:400}
+
+  /* OTHER PROJECTS (Archive) */
+  .bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .bcard{background:var(--surface);border:1px solid var(--border); border-radius:var(--radius); padding:32px;transition:all var(--tr);text-decoration:none;color:inherit;display:block; box-shadow: var(--shadow);}
+  .bcard:hover{transform:translateY(-4px);border-color:var(--text3); box-shadow: var(--shadow-hover);}
+  .bcat{font-size:0.75rem; font-weight:600; letter-spacing:0.05em; color:var(--accent); margin-bottom:16px;}
+  .btitle{font-family:'Outfit', sans-serif; font-weight:600; font-size:1.2rem; line-height:1.4; letter-spacing:-0.01em; margin-bottom:12px; color:var(--text);}
+  .bexc{font-size:0.9rem;color:var(--text2);line-height:1.6;font-weight:400;margin-bottom:20px}
+  .bmeta{font-size:0.8rem;color:var(--text3); font-weight:500;}
+
+  /* CONTACT */
+  .cwrap{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
+  .ctitle{font-family:'Outfit', sans-serif; font-weight:700; font-size:clamp(2rem,4vw,3.2rem); line-height:1.15; letter-spacing:-0.03em; margin-bottom:20px;}
+  .ctitle em{font-style:normal;color:var(--accent)}
+  .ctext{color:var(--text2);font-weight:400;line-height:1.8;margin-bottom:36px;font-size:1rem}
+  .clinks{display:flex;flex-direction:column;gap:12px}
+  .clink{display:flex;align-items:center;gap:16px;font-size:0.95rem; font-weight:500; color:var(--text2);text-decoration:none;transition:all var(--tr);padding:14px 20px;background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); box-shadow: var(--shadow);}
+  .clink:hover{color:var(--accent); border-color:var(--accent); transform:translateX(4px);}
+  .cico{width:24px;text-align:center;font-size:1.1rem}
+  
+  .fg{margin-bottom:20px}
+  .fl{font-size:0.8rem; font-weight:600; color:var(--text2);display:block;margin-bottom:8px}
+  .fi,.ft{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;color:var(--text);font-family:'Inter',sans-serif;font-size:0.95rem;outline:none;transition:all var(--tr);resize:none; box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.02);}
+  .fi:focus,.ft:focus{border-color:var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);}
+  .ft{height:140px}
+  .fbtn{width:100%;background:var(--accent);color:#ffffff;border:none;padding:16px;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:1rem;font-weight:600; cursor:pointer;transition:all var(--tr); box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.3);}
+  .fbtn:hover{background:var(--accent-hover); transform:translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--border);padding:32px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px; background:var(--bg2);}
+  .fcopy{font-size:0.85rem;color:var(--text3); font-weight:500;}
+  .flinks{display:flex;gap:24px}
+  .flinks a{font-size:0.85rem; font-weight:500; color:var(--text3);text-decoration:none;transition:color var(--tr)}
+  .flinks a:hover{color:var(--accent)}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+  @keyframes scan{0%{left:-100%}50%{left:100%}100%{left:100%}}
+  @keyframes pulse{0%,100%{opacity:.3}50%{opacity:.6}}
+  .rev{opacity:0;transform:translateY(24px);transition:opacity 0.8s cubic-bezier(0.4,0,0.2,1),transform 0.8s cubic-bezier(0.4,0,0.2,1)}
+  .rev.vis{opacity:1;transform:translateY(0)}
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    nav{padding:16px 24px}
+    .menu-toggle { display: block; }
+    .nav-center {
+      position: absolute; top: 100%; left: 0; width: 100%;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      flex-direction: column; padding: 24px; gap: 24px;
+      transform: translateY(-150%); opacity: 0; transition: all var(--tr); z-index: -1;
+      box-shadow: var(--shadow-hover);
+    }
+    .nav-center.open { transform: translateY(0); opacity: 1; }
+    .nav-links { flex-direction: column; gap: 24px; width: 100%; text-align: center; }
+    .theme-btn { margin-top: 8px; width: 100%; justify-content: center;}
+
+    .wrap{padding:0 24px}
+    section{padding:80px 0}
+    .about-grid,.exp-grid,.cwrap{grid-template-columns:1fr;gap:56px}
+    .pgrid,.bgrid{grid-template-columns:1fr}
+    .pcard.feat{grid-template-columns:1fr; gap:32px;}
+    footer{padding:32px 24px;flex-direction:column;align-items:flex-start}
+    .stats{gap:32px; flex-wrap:wrap;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Rayhan.dev</a>
+  
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+    ☰
+  </button>
+
+  <div class="nav-center" id="navCenter">
+    <ul class="nav-links">
+      <li><a href="#about" class="nav-item">Profil</a></li>
+      <li><a href="#projects" class="nav-item">Portofolio</a></li>
+      <li><a href="#experience" class="nav-item">Pengalaman</a></li>
+      <li><a href="#blog" class="nav-item">Arsip</a></li>
+      <li><a href="#contact" class="nav-item">Kontak</a></li>
+    </ul>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
+      <span id="ticon">○</span>
+      <span id="tlbl">Gelap</span>
+    </button>
+  </div>
+</nav>
+
+<!-- PERBAIKAN: Menggunakan tag <main> untuk konten utama (SEO & A11y) -->
+<main>
+  <!-- HERO -->
+  <div class="wrap">
+  <section id="hero">
+    <p class="hero-eyebrow">Frontend Developer · Bandung, ID</p>
+    <h1 class="hero-h1">Membangun<br>website yang<br><em>cepat & responsif.</em></h1>
+    <p class="hero-sub">Seorang Frontend Developer yang berfokus membangun aplikasi web interaktif, rapi, dan mudah digunakan. Berpengalaman menangani proyek dari hulu ke hilir dengan performa yang optimal.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-fill">Lihat Portofolio</a>
+      <a href="#contact" class="btn-ghost">Hubungi Saya</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="sline"></div>
+      Scroll untuk melihat
+    </div>
+  </section>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="wrap"><section id="about">
+    <div class="sec-label rev">Tentang Saya</div>
+    <div class="about-grid">
+      <div class="rev">
+        <h2 class="about-title">Kode yang bersih,<br><em>pengalaman yang mulus.</em></h2>
+        <p class="about-p">Halo! Saya Rayhan. Sehari-hari, saya banyak mengeksplorasi ekosistem JavaScript (seperti Next.js dan React) serta arsitektur PHP (terutama Laravel) untuk membangun berbagai solusi digital.</p>
+        <p class="about-p">Bagi saya, web development bukan cuma sekadar membuat fitur yang berfungsi. Saya selalu berusaha memastikan kode yang saya tulis itu terstruktur dengan baik, mudah di-maintain, dan pastinya nyaman digunakan oleh pengguna akhir.</p>
+        <div class="stats">
+          <div><div class="snum">3+</div><div class="slbl">Tahun Pengalaman</div></div>
+          <div><div class="snum">6+</div><div class="slbl">Proyek Terkirim</div></div>
+          <div><div class="snum">3</div><div class="slbl">Klien & Instansi</div></div>
+        </div>
+      </div>
+      <div class="rev" id="skillsWrap">
+        <div class="skill-row"><div class="sdot"></div><span class="sname">PHP / Laravel</span><div class="sbar"><div class="sfill" data-w="0.92"></div></div><span class="slevel">Expert</span></div>
+        <div class="skill-row"><div class="sdot"></div><span class="sname">JavaScript / jQuery</span><div class="sbar"><div class="sfill" data-w="0.88"></div></div><span class="slevel">Expert</span></div>
+        <div class="skill-row"><div class="sdot"></div><span class="sname">HTML / CSS / Tailwind</span><div class="sbar"><div class="sfill" data-w="0.90"></div></div><span class="slevel">Expert</span></div>
+        <div class="skill-row"><div class="sdot"></div><span class="sname">Next.js / React</span><div class="sbar"><div class="sfill" data-w="0.75"></div></div><span class="slevel">Intermediate</span></div>
+        <div class="skill-row"><div class="sdot"></div><span class="sname">Express.js / Node.js</span><div class="sbar"><div class="sfill" data-w="0.70"></div></div><span class="slevel">Intermediate</span></div>
+        <div class="skill-row"><div class="sdot"></div><span class="sname">MySQL / PostgreSQL</span><div class="sbar"><div class="sfill" data-w="0.80"></div></div><span class="slevel">Advanced</span></div>
+      </div>
+    </div>
+  </section></div>
+
+  <!-- PROJECTS -->
+  <div class="wrap"><section id="projects">
+    <div class="proj-header rev">
+      <div>
+        <div class="sec-label">Portofolio</div>
+        <h2 class="sec-title">Proyek pilihan.</h2>
+      </div>
+      <a href="#blog" class="btn-ghost">Lihat Proyek Lainnya →</a>
+    </div>
+    <div class="pgrid rev">
+      <a href="#" class="pcard feat">
+        <div>
+          <span class="pnum">01 — Featured</span>
+          <h3 class="ptitle">APIcentrum Portal</h3>
+          <p class="pdesc">Portal web publik yang menyajikan katalog API dan dokumentasi interaktif. Dirancang dengan antarmuka yang bersih agar mudah ditelusuri dan informatif bagi para developer.</p>
+          <div class="ptags"><span class="tag">Laravel</span><span class="tag">jQuery</span><span class="tag">Bootstrap</span><span class="tag">PHP</span></div>
+          <div class="plinks">
+            <span class="plink">↗ Detail Proyek</span>
+          </div>
+        </div>
+        <div class="mockup">
+          <div style="width:78%">
+            <div class="mline" style="width:100%"></div>
+            <div class="mline"></div>
+            <div class="mline"></div>
+            <div class="mline"></div>
+          </div>
+        </div>
+      </a>
+      <a href="#" class="pcard">
+        <span class="pnum">02</span>
+        <h3 class="ptitle">Loccana</h3>
+        <p class="pdesc">Berfokus pada perbaikan bug, merapikan kode lama (refactoring) agar strukturnya lebih modern, dan menambahkan interaksi UI baru menggunakan jQuery.</p>
+        <div class="ptags"><span class="tag">CodeIgniter</span><span class="tag">PHP</span><span class="tag">jQuery</span></div>
+        <div class="plinks"><span class="plink">↗ Detail Proyek</span></div>
+      </a>
+      <a href="#" class="pcard">
+        <span class="pnum">03</span>
+        <h3 class="ptitle">APIcentrum DevPortal</h3>
+        <p class="pdesc">Portal khusus bagi developer untuk mengelola aplikasi klien, mengatur langganan API, dan menghasilkan kredensial akses dengan aman.</p>
+        <div class="ptags"><span class="tag">Laravel</span><span class="tag">JavaScript</span></div>
+        <div class="plinks"><span class="plink">↗ Detail Proyek</span></div>
+      </a>
+    </div>
+  </section></div>
+
+  <!-- EXPERIENCE -->
+  <div class="wrap"><section id="experience">
+    <div class="sec-label rev">Perjalanan Karir</div>
+    <div class="exp-grid">
+      <div class="rev">
+        <h2 style="font-family:'Outfit',sans-serif; font-weight:700; font-size:clamp(1.6rem,3vw,2.2rem); letter-spacing:-0.02em; margin-bottom:36px; line-height:1.2">Pengalaman<br><em style="color:var(--accent); font-style:normal">Kerja</em></h2>
+        <div class="tline">
+          <div class="titem">
+            <div class="tdot"></div>
+            <div class="tdate">Okt 2022 — Sekarang</div>
+            <div class="trole">Frontend Developer</div>
+            <div class="tco">PT Swamedia Informatika</div>
+            <div class="tdesc">Membangun antarmuka web untuk sistem klien pemerintahan dan swasta. Berhasil membantu meningkatkan trafik organik hingga 20% melalui optimasi performa dan SEO yang lebih baik.</div>
+          </div>
+          <div class="titem">
+            <div class="tdot"></div>
+            <div class="tdate">Feb 2022 — Jul 2022</div>
+            <div class="trole">Fullstack Developer Intern</div>
+            <div class="tco">Binar Academy</div>
+            <div class="tdesc">Turut mengembangkan aplikasi web rental armada menggunakan Next.js. Selain itu, ikut merancang layanan backend dan API menggunakan Express.js serta PostgreSQL.</div>
+          </div>
+          <div class="titem">
+            <div class="tdot"></div>
+            <div class="tdate">Feb 2021 — Jul 2021</div>
+            <div class="trole">IT Staff Intern</div>
+            <div class="tco">PT Pos Indonesia</div>
+            <div class="tdesc">Membantu analisis kebutuhan sistem dan merancang UI mockup. Saya juga membuat aplikasi internal untuk mempermudah rekapitulasi pelaporan divisi IT.</div>
+          </div>
+        </div>
+      </div>
+      <div class="rev">
+        <h2 style="font-family:'Outfit',sans-serif; font-weight:700; font-size:clamp(1.6rem,3vw,2.2rem); letter-spacing:-0.02em; margin-bottom:36px; line-height:1.2">Pendidikan &amp;<br><em style="color:var(--accent); font-style:normal">Organisasi</em></h2>
+        <div class="tline">
+          <div class="titem">
+            <div class="tdot"></div>
+            <div class="tdate">Sep 2018 — Des 2022</div>
+            <div class="trole">D4 Teknik Informatika</div>
+            <div class="tco">Politeknik Pos Indonesia</div>
+            <div class="tdesc">Tugas Akhir: Membangun model klasifikasi Multinomial Naive Bayes berbasis Machine Learning dan NLP untuk menganalisis sentimen terkait aset digital (NFT).</div>
+          </div>
+          <div class="titem">
+            <div class="tdot"></div>
+            <div class="tdate">2019</div>
+            <div class="trole">Frontend Mentor</div>
+            <div class="tco">Morris IF 19</div>
+            <div class="tdesc">Menjadi mentor dan fasilitator teknis bagi mahasiswa baru, mengenalkan mereka pada dasar-dasar pengembangan web frontend.</div>
+          </div>
+          <div class="titem">
+            <div class="tdot"></div>
+            <div class="tdate">2018 — 2022</div>
+            <div class="trole">Anggota Aktif</div>
+            <div class="tco">Himpunan Mahasiswa Teknik Informatika</div>
+            <div class="tdesc">Berpartisipasi aktif dalam kegiatan himpunan untuk membangun relasi dan mengasah soft skill komunikasi.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section></div>
+
+  <!-- BLOG (Diubah menjadi Proyek Tambahan) -->
+  <div class="wrap"><section id="blog">
+    <div class="proj-header rev">
+      <div>
+        <div class="sec-label">Arsip Proyek</div>
+        <h2 class="sec-title">Eksplorasi lainnya.</h2>
+      </div>
+      <a href="https://github.com/Rayhanyl" target="_blank" class="btn-ghost">Lihat GitHub →</a>
+    </div>
+    <div class="bgrid rev">
+      <a href="#" class="bcard">
+        <div class="bcat">Laravel · API Gateway</div>
+        <h3 class="btitle">APIcentrum Publisher</h3>
+        <p class="bexc">Dashboard backend untuk mengelola API yang terintegrasi dengan API Gateway, termasuk konfigurasi policy dan pantauan penggunaan.</p>
+        <div class="bmeta">Jan 2023 — Jan 2025</div>
+      </a>
+      <a href="#" class="bcard">
+        <div class="bcat">Laravel · Bootstrap</div>
+        <h3 class="btitle">Company Profile PT Swamedia Informatika</h3>
+        <p class="bexc">Pengembangan situs web profil perusahaan resmi dengan desain yang modern dan responsif untuk keperluan representasi korporat.</p>
+        <div class="bmeta">Jun 2023 — Agu 2023</div>
+      </a>
+      <a href="#" class="bcard">
+        <div class="bcat">Laravel · jQuery</div>
+        <h3 class="btitle">Talent and Careers Application</h3>
+        <p class="bexc">Aplikasi internal pengelola talenta dan jenjang karir yang dilengkapi dengan fitur dan modul untuk rekrutmen pegawai.</p>
+        <div class="bmeta">Okt 2022 — Feb 2023</div>
+      </a>
+    </div>
+  </section></div>
+
+  <!-- CONTACT -->
+  <div class="wrap"><section id="contact">
+    <div class="cwrap rev">
+      <div>
+        <div class="sec-label">Sapa Saya</div>
+        <h2 class="ctitle">Mari<br>ngobrol &<br><em>bekerja sama.</em></h2>
+        <p class="ctext">Punya ide proyek, tawaran pekerjaan, atau sekadar ingin diskusi santai seputar teknologi? Jangan ragu untuk menghubungi saya melalui email atau media sosial.</p>
+        <div class="clinks">
+          <a href="mailto:rayhanyudalesmana@gmail.com" class="clink"><span class="cico">✉</span> rayhanyudalesmana@gmail.com</a>
+          <a href="https://linkedin.com/in/rayhanyl" target="_blank" class="clink"><span class="cico">in</span> linkedin.com/in/rayhanyl</a>
+          <a href="https://github.com/Rayhanyl" target="_blank" class="clink"><span class="cico">⌥</span> github.com/Rayhanyl</a>
+          <a href="#" class="clink"><span class="cico">📱</span> +62 852-8220-5728</a>
+        </div>
+      </div>
+      <form onsubmit="sendForm(event)">
+        <!-- PERBAIKAN: Menambahkan atribut id pada input dan atribut for pada label -->
+        <div class="fg"><label class="fl" for="inputName">Nama</label><input type="text" id="inputName" class="fi" placeholder="Nama lengkapmu" required></div>
+        <div class="fg"><label class="fl" for="inputEmail">Email</label><input type="email" id="inputEmail" class="fi" placeholder="kamu@email.com" required></div>
+        <div class="fg"><label class="fl" for="inputMessage">Pesan</label><textarea id="inputMessage" class="ft" placeholder="Ceritakan proyekmu..." required></textarea></div>
+        <button type="submit" class="fbtn" id="fbtn">Kirim Pesan →</button>
+      </form>
+    </div>
+  </section></div>
+</main>
+
+<footer>
+  <p class="fcopy">© 2026 Rayhan Yuda Lesmana — Dibuat di Bandung, Indonesia</p>
+  <div class="flinks">
+    <a href="#hero">Atas</a>
+    <a href="https://github.com/Rayhanyl" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/rayhanyl" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+// Theme
+function toggleTheme(){
+  const h=document.documentElement,dark=h.getAttribute('data-theme')==='dark';
+  h.setAttribute('data-theme',dark?'light':'dark');
+  document.getElementById('ticon').textContent=dark?'○':'●';
+  document.getElementById('tlbl').textContent=dark?'Gelap':'Terang';
+  localStorage.setItem('theme',dark?'light':'dark');
+}
+const sv=localStorage.getItem('theme');
+if(sv==='dark'){
+  document.documentElement.setAttribute('data-theme','dark');
+  document.getElementById('ticon').textContent='●';
+  document.getElementById('tlbl').textContent='Terang';
+}
+
+// PERBAIKAN: Mobile Menu Toggle
+const menuBtn = document.getElementById('menuToggle');
+const navCenter = document.getElementById('navCenter');
+const navItems = document.querySelectorAll('.nav-item');
+
+menuBtn.addEventListener('click', () => {
+  navCenter.classList.toggle('open');
+  menuBtn.textContent = navCenter.classList.contains('open') ? '✕' : '☰';
+});
+
+// Menutup menu saat link diklik di HP
+navItems.forEach(item => {
+  item.addEventListener('click', () => {
+    navCenter.classList.remove('open');
+    menuBtn.textContent = '☰';
+  });
+});
+
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',scrollY>20);
+});
+
+// Reveal
+const ro=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('vis'),i*70);
+      ro.unobserve(e.target);
+    }
+  });
+},{threshold:0.08});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+
+// Skill bars
+const so=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.querySelectorAll('.sfill').forEach((b,i)=>{
+        setTimeout(()=>{
+          b.style.width=(parseFloat(b.dataset.w)*100)+'%';
+          b.style.transform='scaleX(1)';
+        },i*100+200);
+      });
+      so.unobserve(entry.target);
+    }
+  });
+},{threshold:0.2});
+const sw=document.getElementById('skillsWrap');
+if(sw)so.observe(sw);
+
+// Form
+function sendForm(e){
+  e.preventDefault();
+  const btn=document.getElementById('fbtn');
+  btn.textContent='Mengirim...';btn.disabled=true;
+  setTimeout(()=>{
+    btn.textContent='Pesan Terkirim ✓';
+    btn.style.background='#c8b89a';btn.style.color='#1a1a18';
+    setTimeout(()=>{
+      btn.textContent='Kirim Pesan →';
+      btn.style.background='';btn.style.color='';btn.disabled=false;
+      e.target.reset();
+    },3000);
+  },1200);
+}
+</script>
+</body>
+</html>
