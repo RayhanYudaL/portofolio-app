@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# portofolio-app
 
-## Getting Started
+Project portfolio pribadi berbasis Next.js App Router.
 
-First, run the development server:
+Status saat ini:
+- Migrasi dari halaman statis ke arsitektur komponen Next.js sedang berjalan.
+- Foundation phase sudah selesai (setup testing, konfigurasi shadcn, metadata awal, baseline homepage).
+
+## Tech Stack
+
+- Next.js 16.2.3
+- React 19.2.4
+- TypeScript
+- Tailwind CSS v4
+- shadcn/ui foundation (components.json + utility helper)
+- Vitest + Testing Library
+- ESLint (eslint-config-next)
+
+## Menjalankan Project
+
+Install dependency:
+
+```bash
+npm install
+```
+
+Jalankan mode development:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka di browser:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Script yang Tersedia
 
-## Learn More
+- npm run dev: menjalankan aplikasi dalam mode development.
+- npm run build: build production.
+- npm run start: menjalankan hasil build production.
+- npm run lint: cek kualitas kode dengan ESLint.
+- npm run test: menjalankan unit test (Vitest).
+- npm run test:watch: menjalankan test mode watch.
 
-To learn more about Next.js, take a look at the following resources:
+## Struktur Penting
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- app: App Router (layout, page, global style).
+- test: baseline test untuk homepage dan metadata layout.
+- lib: utility helper, termasuk className merge helper.
+- plans: dokumen perencanaan dan ringkasan phase implementasi.
+- note: folder catatan phase tambahan (saat ini masih kosong).
+- portofolio.html: referensi source halaman statis sebelum migrasi komponen selesai.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Progres Migrasi
 
-## Deploy on Vercel
+Dokumen plan dan phase completion:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- plans/portfolio-nextjs-tailwind-shadcn/portfolio-nextjs-tailwind-shadcn-plan.md
+- plans/portfolio-nextjs-tailwind-shadcn/portfolio-nextjs-tailwind-shadcn-phase-1-complete.md
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Pengujian
+
+Menjalankan seluruh test:
+
+```bash
+npm run test
+```
+
+Menjalankan lint:
+
+```bash
+npm run lint
+```
+
+## Catatan
+
+Project ini bukan lagi template default create-next-app. README ini sudah disesuaikan dengan kondisi repository saat ini dan akan diperbarui seiring progres phase berikutnya.
