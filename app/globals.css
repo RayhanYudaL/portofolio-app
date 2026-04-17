@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f9fafb;
+  --foreground: #14181f;
+  --card: #ffffff;
+  --muted: #5f6876;
+  --border: #d9dee8;
+  --accent: #eaf0ff;
+  --ring: #4f6cc9;
+  --radius: 0.875rem;
+}
+
+[data-theme="dark"] {
+  --background: #0f141d;
+  --foreground: #f2f5fb;
+  --card: #161d2a;
+  --muted: #afbacd;
+  --border: #2c3544;
+  --accent: #202b42;
+  --ring: #8ea8ff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-outfit);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-outfit), "Segoe UI", sans-serif;
+  letter-spacing: -0.02em;
 }

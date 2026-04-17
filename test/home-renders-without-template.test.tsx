@@ -1,11 +1,16 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
+import { ThemeProvider } from "@/app/components/theme-provider";
 import Home from "@/app/page";
 
 describe("home page", () => {
   it("renders portfolio heading and removes default template copy", () => {
-    render(<Home />);
+    render(
+      <ThemeProvider>
+        <Home />
+      </ThemeProvider>,
+    );
 
     expect(
       screen.getByRole("heading", {
