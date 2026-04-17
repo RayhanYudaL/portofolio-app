@@ -19,17 +19,32 @@ export function Reveal({ children, className, delayMs = 0 }: RevealProps) {
       return;
     }
 
-    if (!("IntersectionObserver" in window)) {
-      const frameId = window.requestAnimationFrame(() => {
-        setIsVisible(true);
-      });
+    let timeoutId: number | undefined;
+    let frameId: number | undefined;
+
+    if (typeof window.IntersectionObserver === "undefined") {
+      const revealNow = () => {
+        frameId = window.requestAnimationFrame(() => {
+          setIsVisible(true);
+        });
+      };
+
+      if (delayMs > 0) {
+        timeoutId = window.setTimeout(revealNow, delayMs);
+      } else {
+        revealNow();
+      }
 
       return () => {
-        window.cancelAnimationFrame(frameId);
+        if (typeof timeoutId === "number") {
+          window.clearTimeout(timeoutId);
+        }
+        if (typeof frameId === "number") {
+          window.cancelAnimationFrame(frameId);
+        }
       };
     }
 
-    let timeoutId: number | undefined;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

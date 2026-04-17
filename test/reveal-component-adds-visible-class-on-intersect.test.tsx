@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { Reveal } from "@/app/components/reveal";
@@ -39,6 +39,7 @@ describe("reveal component", () => {
   afterEach(() => {
     cleanup();
     vi.restoreAllMocks();
+    vi.useRealTimers();
   });
 
   it("adds visible class when the element intersects", async () => {
@@ -66,5 +67,43 @@ describe("reveal component", () => {
     });
 
     expect(unobserveSpy).toHaveBeenCalledWith(target);
+  });
+
+  it("respects delay fallback when IntersectionObserver is unavailable", async () => {
+    vi.useFakeTimers();
+    Object.defineProperty(window, "IntersectionObserver", {
+      configurable: true,
+      writable: true,
+      value: undefined,
+    });
+    vi.spyOn(window, "requestAnimationFrame").mockImplementation((callback) => {
+      callback(0);
+      return 1;
+    });
+
+    render(
+      <Reveal delayMs={200}>
+        <div data-testid="fallback-content">Konten fallback</div>
+      </Reveal>,
+    );
+
+    const revealContainer = screen.getByTestId("fallback-content").parentElement;
+    expect(revealContainer).toBeTruthy();
+
+    const target = revealContainer as HTMLDivElement;
+    expect(target).not.toHaveClass("visible");
+
+    act(() => {
+      vi.advanceTimersByTime(199);
+    });
+    expect(target).not.toHaveClass("visible");
+
+    act(() => {
+      vi.advanceTimersByTime(1);
+    });
+
+    expect(target).toHaveClass("visible");
+
+    vi.useRealTimers();
   });
 });
